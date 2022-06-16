@@ -8,10 +8,10 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key, this.title = "Home"}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State {
+class HomePageState extends State {
   final HomeStore store = Modular.get();
 
   @override
@@ -20,11 +20,21 @@ class _HomePageState extends State {
       appBar: AppBar(
         title: const Text('Counter'),
       ),
-      body: ScopedBuilder<HomeStore, Exception, int>(
+      body: ScopedBuilder<HomeStore, Exception, int>.transition(
         store: store,
+        transition: (_, child) {
+          return AnimatedSwitcher(
+            duration: const Duration(milliseconds: 100),
+            child: child,
+          );
+        },
+        onLoading: (_) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
         onState: (_, counter) {
-          return Padding(
-            padding: const EdgeInsets.all(10),
+          return Center(
             child: Text('$counter'),
           );
         },

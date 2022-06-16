@@ -1,6 +1,5 @@
+import 'package:app/app/modules/home/presenter/home/home_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
-import 'modules/home/home_module.dart';
 
 class AppModule extends Module {
   @override
@@ -10,5 +9,4 @@ class AppModule extends Module {
   final List<ModularRoute> routes = [
     ModuleRoute(Modular.initialRoute, module: HomeModule()),
   ];
-
 }
