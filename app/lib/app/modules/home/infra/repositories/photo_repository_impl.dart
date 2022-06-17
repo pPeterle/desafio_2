@@ -11,23 +11,15 @@ class PhotoRepositoryImpl implements PhotoRepository {
   PhotoRepositoryImpl(this._remoteDatasource);
 
   @override
-  Future<Either<Failure, PhotoRequestResult>> getPhotos({
-    String? query,
+  Future<Either<Failure, PhotoRequestResult>> searchPhotos(
+    String query, {
+    int page = 1,
   }) async {
     try {
-      final result = await _remoteDatasource.getPhotos(query: query);
-      return Right(result.mapToDomain());
-    } catch (e) {
-      return Left(DataSourceError());
-    }
-  }
-
-  @override
-  Future<Either<Failure, PhotoRequestResult>> getPhotosNextPage(
-    String url,
-  ) async {
-    try {
-      final result = await _remoteDatasource.getPhotosNextPage(url);
+      final result = await _remoteDatasource.searchPhotos(
+        query,
+        page: page,
+      );
       return Right(result.mapToDomain());
     } catch (e) {
       return Left(DataSourceError());

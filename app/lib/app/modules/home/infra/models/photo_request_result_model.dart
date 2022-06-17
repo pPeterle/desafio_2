@@ -10,14 +10,16 @@ class PhotoRequestResultModel extends PhotoRequestResult {
     super.nextPage,
   });
 
-  factory PhotoRequestResultModel.fromJson(Map<String, dynamic> json) =>
-      PhotoRequestResultModel(
-        totalResults: json['total_results'] as int,
-        page: json['page'] as int,
-        perPage: json['per_page'] as int,
-        nextPage: json['next_page'] as String?,
-        photos: json['photos'].forEach((photo) => PhotoModel.fromJson(json)),
-      );
+  factory PhotoRequestResultModel.fromJson(Map<String, dynamic> json) {
+    final photos = json['photos'] as List;
+    return PhotoRequestResultModel(
+      totalResults: json['total_results'] as int,
+      page: json['page'] as int,
+      perPage: json['per_page'] as int,
+      nextPage: json['next_page'] as String?,
+      photos: photos.map((photo) => PhotoModel.fromJson(photo)).toList(),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         'total_results': totalResults,

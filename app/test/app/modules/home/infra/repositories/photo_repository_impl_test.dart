@@ -14,7 +14,7 @@ void main() {
   final repository = PhotoRepositoryImpl(remoteDatasource);
 
   test('should return photo request result on success in getPhotos', () async {
-    when(() => remoteDatasource.getPhotos()).thenAnswer(
+    when(() => remoteDatasource.searchPhotos(any())).thenAnswer(
       (_) async => PhotoRequestResultModel(
         totalResults: 1,
         page: 1,
@@ -22,7 +22,7 @@ void main() {
         photos: [],
       ),
     );
-    final result = await repository.getPhotos();
+    final result = await repository.searchPhotos('');
 
     expect(
       result.getOrElse(() => fail('should return right')),
@@ -31,36 +31,8 @@ void main() {
   });
 
   test('should return DataSourceError on error in getPhotos', () async {
-    when(() => remoteDatasource.getPhotos()).thenThrow(Error());
-    final result = await repository.getPhotos();
-
-    expect(
-      result.fold(id, id),
-      isA<DataSourceError>(),
-    );
-  });
-
-  test('should return photo request result on success in getPhotosNextPage',
-      () async {
-    when(() => remoteDatasource.getPhotosNextPage(any())).thenAnswer(
-      (_) async => PhotoRequestResultModel(
-        totalResults: 1,
-        page: 1,
-        perPage: 1,
-        photos: [],
-      ),
-    );
-    final result = await repository.getPhotosNextPage('any');
-
-    expect(
-      result.getOrElse(() => fail('should return right')),
-      isA<RequestResult>(),
-    );
-  });
-
-  test('should return DataSourceError on error in getPhotosNextPage', () async {
-    when(() => remoteDatasource.getPhotosNextPage(any())).thenThrow(Error());
-    final result = await repository.getPhotosNextPage('any');
+    when(() => remoteDatasource.searchPhotos(any())).thenThrow(Error());
+    final result = await repository.searchPhotos('');
 
     expect(
       result.fold(id, id),
