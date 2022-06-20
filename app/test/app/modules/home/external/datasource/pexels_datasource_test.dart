@@ -48,11 +48,16 @@ void main() {
           'page': 1,
         },
       ),
-    ).thenAnswer(
-      (invocation) async => Response(
-        statusCode: 500,
+    ).thenThrow(
+      DioError(
         requestOptions: RequestOptions(
           path: '',
+        ),
+        response: Response(
+          statusCode: 500,
+          requestOptions: RequestOptions(
+            path: '',
+          ),
         ),
       ),
     );
@@ -62,6 +67,37 @@ void main() {
       fail('Should throw exception on code 500');
     } catch (e) {
       expect(e, isA<DataSourceError>());
+    }
+  });
+
+  test('should return InvalidQueryError on empty query', () async {
+    when(
+      () => dio.get(
+        searchPhotoUrl,
+        queryParameters: {
+          'query': '',
+          'page': 1,
+        },
+      ),
+    ).thenThrow(
+      DioError(
+        requestOptions: RequestOptions(
+          path: '',
+        ),
+        response: Response(
+          statusCode: 400,
+          requestOptions: RequestOptions(
+            path: '',
+          ),
+        ),
+      ),
+    );
+
+    try {
+      await datasource.searchPhotos('');
+      fail('Should throw exception on code 500');
+    } catch (e) {
+      expect(e, isA<InvalidQueryError>());
     }
   });
 }
