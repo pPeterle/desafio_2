@@ -2,6 +2,7 @@ import 'package:app/app/modules/home/presenter/home/tab/photos_curated/photos_cu
 import 'package:app/app/modules/home/presenter/home/widgets/home_app_bar.dart';
 import 'package:app/app/modules/home/presenter/home/widgets/home_tab_bar_widget.dart';
 import 'package:app/app/modules/home/presenter/home/widgets/search_bar_widget.dart';
+import 'package:app/app/modules/home/presenter/util/show_error_mixin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'home_store.dart';
@@ -14,7 +15,8 @@ class HomePage extends StatefulWidget {
   HomePageState createState() => HomePageState();
 }
 
-class HomePageState extends State with SingleTickerProviderStateMixin {
+class HomePageState extends State
+    with SingleTickerProviderStateMixin, ShowErrorMixin {
   final HomeStore store = Modular.get();
   late final TabController _tabController;
 
@@ -22,29 +24,6 @@ class HomePageState extends State with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    store.fetchData();
-    store.selectError.addListener(() {
-      if (store.error != null) {
-        final colorScheme = Theme.of(context).colorScheme;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'Algum erro',
-              style: TextStyle(color: colorScheme.onSecondary),
-            ),
-            action: SnackBarAction(
-              label: 'Retry',
-              textColor: colorScheme.onSecondary,
-              onPressed: () {
-                store.fetchData();
-              },
-            ),
-            backgroundColor: colorScheme.secondary,
-            duration: const Duration(seconds: 10),
-          ),
-        );
-      }
-    });
   }
 
   @override
