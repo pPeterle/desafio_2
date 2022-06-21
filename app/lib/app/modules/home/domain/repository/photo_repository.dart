@@ -7,4 +7,8 @@ abstract class PhotoRepository {
     String query, {
     int page = 1,
   });
+
+  Future<Either<Failure, PhotoRequestResult>> getCuratedPhotos({
+    int page = 1,
+  });
 }

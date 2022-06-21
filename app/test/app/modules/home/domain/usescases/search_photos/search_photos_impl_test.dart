@@ -1,7 +1,7 @@
 import 'package:app/app/modules/home/domain/entities/photo_request_result.dart';
 import 'package:app/app/modules/home/domain/errors/errors.dart';
 import 'package:app/app/modules/home/domain/repository/photo_repository.dart';
-import 'package:app/app/modules/home/domain/usescases/search_photos/search_photos_impl.dart';
+import 'package:app/app/modules/home/domain/usescases/search_photos/search_photos_usecase_impl.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -10,7 +10,7 @@ class PhotoRepositoryMock extends Mock implements PhotoRepository {}
 
 void main() {
   final PhotoRepositoryMock repository = PhotoRepositoryMock();
-  final SearchPhotosImpl usecase = SearchPhotosImpl(repository);
+  final SearchPhotosUsecaseImpl usecase = SearchPhotosUsecaseImpl(repository);
   test('should return PhotoRequestResult on success', () async {
     when(() => repository.searchPhotos(any())).thenAnswer(
       (_) async => Right(

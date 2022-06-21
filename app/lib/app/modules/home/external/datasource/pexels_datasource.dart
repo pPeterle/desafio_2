@@ -19,10 +19,7 @@ class PexelsDatasource implements PhotoRemoteDatasource {
     try {
       final result = await _dio.get(
         searchPhotoUrl,
-        queryParameters: {
-          'query': query,
-          'page': page,
-        },
+        queryParameters: {'query': query, 'page': page, 'per_page': 30},
       );
 
       return PhotoRequestResultModel.fromJson(result.data);
@@ -32,5 +29,17 @@ class PexelsDatasource implements PhotoRemoteDatasource {
       }
       throw DataSourceError();
     }
+  }
+
+  @override
+  Future<PhotoRequestResultModel> getCuratedPhotos({
+    int page = 1,
+  }) async {
+    final result = await _dio.get(
+      curatedPhotoUrl,
+      queryParameters: {'page': page, 'per_page': 30},
+    );
+
+    return PhotoRequestResultModel.fromJson(result.data);
   }
 }

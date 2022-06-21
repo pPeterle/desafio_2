@@ -25,4 +25,17 @@ class PhotoRepositoryImpl implements PhotoRepository {
       return Left(DataSourceError());
     }
   }
+
+  @override
+  Future<Either<Failure, PhotoRequestResult>> getCuratedPhotos(
+      {int page = 1}) async {
+    try {
+      final result = await _remoteDatasource.getCuratedPhotos(
+        page: page,
+      );
+      return Right(result.mapToDomain());
+    } catch (e) {
+      return Left(DataSourceError());
+    }
+  }
 }

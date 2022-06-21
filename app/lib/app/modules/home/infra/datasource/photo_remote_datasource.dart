@@ -2,4 +2,5 @@ import 'package:app/app/modules/home/infra/models/photo_request_result_model.dar
 
 abstract class PhotoRemoteDatasource {
   Future<PhotoRequestResultModel> searchPhotos(String query, {int page = 1});
+  Future<PhotoRequestResultModel> getCuratedPhotos({int page = 1});
 }
