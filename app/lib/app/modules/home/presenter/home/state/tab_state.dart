@@ -1,21 +1,21 @@
 import 'package:app/app/modules/home/domain/entities/photo.dart';
 
-abstract class HomeState {}
+abstract class TabState {}
 
-class HomeStart extends HomeState {}
+class TabStart extends TabState {}
 
-class HomeFetchData extends HomeState {
+class TabFetchData extends TabState {
   final List<Photo> photos;
   final String? nextpage;
   final bool loadingNewPage;
 
-  HomeFetchData({
+  TabFetchData({
     required this.photos,
     this.nextpage,
     this.loadingNewPage = false,
   });
 }
 
-class HomeFetchingNewPage extends HomeFetchData {
-  HomeFetchingNewPage({required super.photos});
+class TabFetchingNewPage extends TabFetchData {
+  TabFetchingNewPage({required super.photos});
 }

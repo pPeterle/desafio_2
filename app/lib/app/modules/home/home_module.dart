@@ -3,7 +3,9 @@ import 'package:app/app/modules/home/domain/usescases/search_photos/search_photo
 import 'package:app/app/modules/home/external/datasource/pexels_datasource.dart';
 import 'package:app/app/modules/home/infra/repositories/photo_repository_impl.dart';
 import 'package:app/app/modules/home/presenter/home/pages/photo/photo_page.dart';
+import 'package:app/app/modules/home/presenter/home/tab/photos_animals/photos_animals_store.dart';
 import 'package:app/app/modules/home/presenter/home/tab/photos_curated/photos_curated_store.dart';
+import 'package:app/app/modules/home/presenter/home/tab/photos_trends/photos_curated_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'external/util/dio/custom_dio.dart';
 import 'external/util/dio/interceptors/token_interceptor.dart';
@@ -23,6 +25,8 @@ class HomeModule extends Module {
     Bind.singleton((i) => PhotoRepositoryImpl(i.get())),
     Bind.singleton((i) => CuratedPhotosImpl(i.get())),
     Bind.singleton((i) => HomeStore(i.get())),
+    Bind.singleton((i) => PhotosTrendsStore(i.get())),
+    Bind.singleton((i) => PhotosAnimalsStore(i.get())),
     Bind.singleton((i) => PhotosCuratedStore(i.get())),
   ];
 
