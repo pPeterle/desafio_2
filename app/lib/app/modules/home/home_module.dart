@@ -5,11 +5,11 @@ import 'package:app/app/modules/home/infra/repositories/photo_repository_impl.da
 import 'package:app/app/modules/home/presenter/home/pages/photo/photo_page.dart';
 import 'package:app/app/modules/home/presenter/home/tab/photos_curated/photos_curated_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'external/util/dio/custom_dio.dart';
+import 'external/util/dio/interceptors/token_interceptor.dart';
 import 'presenter/home/home_store.dart';
 
 import 'presenter/home/home_page.dart';
-import 'util/dio/custom_dio.dart';
-import 'util/dio/interceptors/token_interceptor.dart';
 
 const photoRoute = '/photo';
 
@@ -22,8 +22,8 @@ class HomeModule extends Module {
     Bind.singleton((i) => SearchPhotosUsecaseImpl(i.get())),
     Bind.singleton((i) => PhotoRepositoryImpl(i.get())),
     Bind.singleton((i) => CuratedPhotosImpl(i.get())),
-    Bind.lazySingleton((i) => HomeStore(i.get())),
-    Bind.lazySingleton((i) => PhotosCuratedStore(i.get())),
+    Bind.singleton((i) => HomeStore(i.get())),
+    Bind.singleton((i) => PhotosCuratedStore(i.get())),
   ];
 
   @override
