@@ -1,8 +1,8 @@
 import 'package:app/app/modules/home/domain/errors/errors.dart';
 import 'package:app/app/modules/home/external/datasource/pexels_datasource.dart';
+import 'package:app/app/modules/home/external/util/dio/custom_dio.dart';
+import 'package:app/app/modules/home/external/util/urls.dart';
 import 'package:app/app/modules/home/infra/models/photo_request_result_model.dart';
-import 'package:app/app/modules/home/util/dio/custom_dio.dart';
-import 'package:app/app/modules/home/util/urls.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -19,10 +19,7 @@ void main() {
     when(
       () => dio.get(
         searchPhotoUrl,
-        queryParameters: {
-          'query': 'Animals',
-          'page': 1,
-        },
+        queryParameters: {'query': 'Animals', 'page': 1, 'per_page': 30},
       ),
     ).thenAnswer(
       (invocation) async => Response(
@@ -43,10 +40,7 @@ void main() {
     when(
       () => dio.get(
         searchPhotoUrl,
-        queryParameters: {
-          'query': 'Animals',
-          'page': 1,
-        },
+        queryParameters: {'query': 'Animals', 'page': 1, 'per_page': 30},
       ),
     ).thenThrow(
       DioError(
@@ -74,10 +68,7 @@ void main() {
     when(
       () => dio.get(
         searchPhotoUrl,
-        queryParameters: {
-          'query': '',
-          'page': 1,
-        },
+        queryParameters: {'query': '', 'page': 1, 'per_page': 30},
       ),
     ).thenThrow(
       DioError(

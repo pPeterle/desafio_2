@@ -1,7 +1,7 @@
 import '../errors/errors.dart';
 
-mixin UsecaseMixin {
-  int getPageFromUrl(String url) {
+class DomainUtil {
+  static int getPageFromUrl(String url) {
     final regex = RegExp(r'[?&]page=(\d+)');
     final page = regex.firstMatch(url)?.group(1);
 

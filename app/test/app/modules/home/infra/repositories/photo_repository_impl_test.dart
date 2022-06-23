@@ -39,4 +39,43 @@ void main() {
       isA<DataSourceError>(),
     );
   });
+
+  test('should return photo request result on success in getCuratedPhotos',
+      () async {
+    when(() => remoteDatasource.getCuratedPhotos()).thenAnswer(
+      (_) async => PhotoRequestResultModel(
+        totalResults: 1,
+        page: 1,
+        perPage: 1,
+        photos: [],
+      ),
+    );
+    final result = await repository.getCuratedPhotos();
+
+    expect(
+      result.getOrElse(() => fail('should return right')),
+      isA<RequestResult>(),
+    );
+  });
+
+  test('should return DataSourceError on error in getCuratedPhotos', () async {
+    when(() => remoteDatasource.getCuratedPhotos()).thenThrow(Error());
+    final result = await repository.getCuratedPhotos();
+
+    expect(
+      result.fold(id, id),
+      isA<DataSourceError>(),
+    );
+  });
+
+  test('should return InvalidQueryError on error in getPhotos', () async {
+    when(() => remoteDatasource.searchPhotos(any()))
+        .thenThrow(InvalidQueryError());
+    final result = await repository.searchPhotos('');
+
+    expect(
+      result.fold(id, id),
+      isA<InvalidQueryError>(),
+    );
+  });
 }

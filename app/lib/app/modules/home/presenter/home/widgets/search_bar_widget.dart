@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../../home_module.dart';
 
 class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({Key? key}) : super(key: key);
@@ -16,6 +19,11 @@ class SearchBarWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
+        onTap: () async {
+          FocusScope.of(context).requestFocus(FocusNode());
+          await Modular.to.pushNamed(searchRoute);
+        },
+        cursorColor: theme.colorScheme.onPrimary.withOpacity(.5),
         decoration: InputDecoration(
           hintText: 'Search',
           hintStyle: TextStyle(

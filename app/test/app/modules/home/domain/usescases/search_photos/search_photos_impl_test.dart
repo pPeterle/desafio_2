@@ -68,4 +68,18 @@ void main() {
       equals(5),
     );
   });
+
+  test('should return InvalidQueryError if query is empty', () async {
+    when(() => repository.searchPhotos(any())).thenAnswer(
+      (_) async => Right(
+        PhotoRequestResult(photos: [], page: 1, perPage: 1, totalResults: 1),
+      ),
+    );
+    final result = await usecase('', url: 'correct&page=5');
+
+    expect(
+      result.fold(id, id),
+      isA<InvalidQueryError>(),
+    );
+  });
 }

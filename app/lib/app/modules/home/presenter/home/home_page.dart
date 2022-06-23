@@ -1,6 +1,6 @@
-import 'package:app/app/modules/home/presenter/home/tab/photos_animals/photos_animals_widget.dart';
-import 'package:app/app/modules/home/presenter/home/tab/photos_curated/photos_curated_widget.dart';
-import 'package:app/app/modules/home/presenter/home/tab/photos_trends/photos_curated_widget.dart';
+import 'package:app/app/modules/home/presenter/home/tab/animals_photos/animals_photos_widget.dart';
+import 'package:app/app/modules/home/presenter/home/tab/photos_curated/curated_photos_widget.dart';
+import 'package:app/app/modules/home/presenter/home/tab/photos_trends/trends_photos_widget.dart';
 import 'package:app/app/modules/home/presenter/home/widgets/home_app_bar.dart';
 import 'package:app/app/modules/home/presenter/home/widgets/home_tab_bar_widget.dart';
 import 'package:app/app/modules/home/presenter/home/widgets/search_bar_widget.dart';
@@ -41,9 +41,9 @@ class HomePageState extends State with SingleTickerProviderStateMixin {
             child: TabBarView(
               controller: _tabController,
               children: const [
-                PhotosCuratedWidget(),
-                PhotosTrendsWidget(),
-                PhotosAnimalsWidget(),
+                CuratedPhotosWidget(),
+                TrendsPhotosWidget(),
+                AnimalsPhotosWidget(),
               ],
             ),
           )

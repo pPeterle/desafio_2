@@ -11,7 +11,7 @@ class PhotoGridWidget extends StatelessWidget {
   final VoidCallback? fetchNewData;
   final bool loading;
 
-  PhotoGridWidget({
+  const PhotoGridWidget({
     Key? key,
     this.fetchNewData,
     required this.photos,

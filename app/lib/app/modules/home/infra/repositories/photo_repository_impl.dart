@@ -21,19 +21,26 @@ class PhotoRepositoryImpl implements PhotoRepository {
         page: page,
       );
       return Right(result.mapToDomain());
+    } on InternetConnectionError {
+      return Left(InternetConnectionError());
+    } on InvalidQueryError {
+      return Left(InvalidQueryError());
     } catch (e) {
       return Left(DataSourceError());
     }
   }
 
   @override
-  Future<Either<Failure, PhotoRequestResult>> getCuratedPhotos(
-      {int page = 1}) async {
+  Future<Either<Failure, PhotoRequestResult>> getCuratedPhotos({
+    int page = 1,
+  }) async {
     try {
       final result = await _remoteDatasource.getCuratedPhotos(
         page: page,
       );
       return Right(result.mapToDomain());
+    } on InternetConnectionError {
+      return Left(InternetConnectionError());
     } catch (e) {
       return Left(DataSourceError());
     }

@@ -3,9 +3,9 @@ import 'package:app/app/modules/home/domain/usescases/search_photos/search_photo
 import 'package:app/app/modules/home/presenter/home/state/tab_state.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 
-class PhotosAnimalsStore extends NotifierStore<Failure, TabState> {
+class AnimalsPhotosStore extends NotifierStore<Failure, TabState> {
   final SearchPhotosUsecase _searchPhotosUsecase;
-  PhotosAnimalsStore(this._searchPhotosUsecase) : super(TabStart());
+  AnimalsPhotosStore(this._searchPhotosUsecase) : super(TabStart());
 
   final query = 'Animals';
 

@@ -24,6 +24,9 @@ class PexelsDatasource implements PhotoRemoteDatasource {
 
       return PhotoRequestResultModel.fromJson(result.data);
     } on DioError catch (e) {
+      if (e.type == DioErrorType.connectTimeout) {
+        throw InternetConnectionError();
+      }
       if (e.response?.statusCode == 400) {
         throw InvalidQueryError();
       }
@@ -35,11 +38,18 @@ class PexelsDatasource implements PhotoRemoteDatasource {
   Future<PhotoRequestResultModel> getCuratedPhotos({
     int page = 1,
   }) async {
-    final result = await _dio.get(
-      curatedPhotoUrl,
-      queryParameters: {'page': page, 'per_page': 30},
-    );
+    try {
+      final result = await _dio.get(
+        curatedPhotoUrl,
+        queryParameters: {'page': page, 'per_page': 30},
+      );
 
-    return PhotoRequestResultModel.fromJson(result.data);
+      return PhotoRequestResultModel.fromJson(result.data);
+    } on DioError catch (e) {
+      if (e.type == DioErrorType.connectTimeout) {
+        throw InternetConnectionError();
+      }
+      throw DataSourceError();
+    }
   }
 }

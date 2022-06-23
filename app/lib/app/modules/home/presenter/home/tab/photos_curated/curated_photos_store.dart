@@ -1,19 +1,17 @@
 import 'package:app/app/modules/home/domain/errors/errors.dart';
-import 'package:app/app/modules/home/domain/usescases/search_photos/search_photos_usecase.dart';
+import 'package:app/app/modules/home/domain/usescases/curated_photos/curated_photos_usecase.dart';
 import 'package:app/app/modules/home/presenter/home/state/tab_state.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 
-class PhotosTrendsStore extends NotifierStore<Failure, TabState> {
-  final SearchPhotosUsecase _searchPhotosUsecase;
-  PhotosTrendsStore(this._searchPhotosUsecase) : super(TabStart());
+class CuratedPhotosStore extends NotifierStore<Failure, TabState> {
+  final CuratedPhotosUsecase _curatedPhotosUsecase;
+  CuratedPhotosStore(this._curatedPhotosUsecase) : super(TabStart());
 
-  final query = 'Trends';
-
-  fetchData() async {
+  Future fetchData() async {
     if (state is! TabStart) return;
 
     setLoading(true);
-    final result = await _searchPhotosUsecase(query);
+    final result = await _curatedPhotosUsecase();
     result.fold(
       (l) => setError(l),
       (r) => update(
@@ -23,7 +21,7 @@ class PhotosTrendsStore extends NotifierStore<Failure, TabState> {
     setLoading(false);
   }
 
-  fetchNewPage() async {
+  Future fetchNewPage() async {
     if (selectState.value is! TabFetchData) return;
     final state = (selectState.value as TabFetchData);
     if (state.loadingNewPage || isLoading) return;
@@ -37,7 +35,7 @@ class PhotosTrendsStore extends NotifierStore<Failure, TabState> {
     );
     await Future.delayed(const Duration(seconds: 10));
 
-    final result = await _searchPhotosUsecase(query, url: state.nextpage);
+    final result = await _curatedPhotosUsecase(url: state.nextpage);
 
     result.fold(
       (l) => setError(l),

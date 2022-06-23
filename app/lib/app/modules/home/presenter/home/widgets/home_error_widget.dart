@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 class HomeErrorWidget extends StatelessWidget {
   final VoidCallback callback;
   final String message;
-  const HomeErrorWidget(
-      {Key? key, required this.message, required this.callback})
-      : super(key: key);
+  const HomeErrorWidget({
+    Key? key,
+    required this.message,
+    required this.callback,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class HomeErrorWidget extends StatelessWidget {
             ),
           ),
           child: const Text(
-            'Tentar Novamente',
+            'Try again',
           ),
         )
       ],

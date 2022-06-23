@@ -1,4 +1,3 @@
-import 'package:app/app/modules/home/presenter/home/tab/photos_animals/photos_animals_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
@@ -8,16 +7,17 @@ import '../../state/tab_state.dart';
 import '../../widgets/home_error_widget.dart';
 import '../../widgets/home_loading.dart';
 import '../../widgets/photo_grid_widget.dart';
+import 'curated_photos_store.dart';
 
-class PhotosAnimalsWidget extends StatefulWidget {
-  const PhotosAnimalsWidget({Key? key}) : super(key: key);
+class CuratedPhotosWidget extends StatefulWidget {
+  const CuratedPhotosWidget({Key? key}) : super(key: key);
 
   @override
-  State<PhotosAnimalsWidget> createState() => _PhotosAnimalsWidgetState();
+  State<CuratedPhotosWidget> createState() => _CuratedPhotosWidgetState();
 }
 
-class _PhotosAnimalsWidgetState extends State<PhotosAnimalsWidget> {
-  final PhotosAnimalsStore store = Modular.get();
+class _CuratedPhotosWidgetState extends State<CuratedPhotosWidget> {
+  final CuratedPhotosStore store = Modular.get();
 
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _PhotosAnimalsWidgetState extends State<PhotosAnimalsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedBuilder<PhotosAnimalsStore, Failure, TabState>(
+    return ScopedBuilder<CuratedPhotosStore, Failure, TabState>(
       store: store,
       onLoading: (context) {
         return const HomeLoading();
@@ -49,7 +49,7 @@ class _PhotosAnimalsWidgetState extends State<PhotosAnimalsWidget> {
           callback: () {
             store.fetchData();
           },
-          message: 'Error',
+          message: error!.message,
         );
       },
     );
