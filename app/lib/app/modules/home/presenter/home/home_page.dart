@@ -28,7 +28,7 @@ class HomePageState extends State with SingleTickerProviderStateMixin {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: const HomeAppBarWidget(),
+      appBar: HomeAppBarWidget(),
       backgroundColor: theme.colorScheme.primary,
       body: Column(
         children: [

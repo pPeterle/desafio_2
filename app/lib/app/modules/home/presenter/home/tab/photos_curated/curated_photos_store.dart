@@ -33,7 +33,6 @@ class CuratedPhotosStore extends NotifierStore<Failure, TabState> {
         loadingNewPage: true,
       ),
     );
-    await Future.delayed(const Duration(seconds: 10));
 
     final result = await _curatedPhotosUsecase(url: state.nextpage);
 

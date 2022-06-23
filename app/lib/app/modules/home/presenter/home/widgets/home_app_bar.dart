@@ -1,7 +1,10 @@
+import 'package:app/app/app_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class HomeAppBarWidget extends StatelessWidget with PreferredSizeWidget {
-  const HomeAppBarWidget({Key? key}) : super(key: key);
+  final AppStore appStore = Modular.get();
+  HomeAppBarWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +13,9 @@ class HomeAppBarWidget extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: theme.colorScheme.secondary,
       actions: [
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            appStore.toggleTheme();
+          },
           icon: Icon(
             Icons.menu,
             color: theme.colorScheme.onPrimary,

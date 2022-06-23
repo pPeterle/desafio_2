@@ -16,7 +16,7 @@ class MockCounterStore extends MockStore<Failure, TabState>
 
 const query = 'Animals';
 void main() {
-  late final SearchPhotosUsecaseMock usecaseMock;
+  late SearchPhotosUsecaseMock usecaseMock;
 
   setUp(() {
     usecaseMock = SearchPhotosUsecaseMock();

@@ -14,11 +14,12 @@ class MockCounterStore extends MockStore<Failure, TabState>
     implements CuratedPhotosStore {}
 
 void main() {
-  late final CuratedPhotosUsecaseMock usecaseMock;
+  late CuratedPhotosUsecaseMock usecaseMock;
 
   setUp(() {
     usecaseMock = CuratedPhotosUsecaseMock();
   });
+
   storeTest<CuratedPhotosStore>(
     'should fetch data',
     build: () {

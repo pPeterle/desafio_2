@@ -35,7 +35,6 @@ class AnimalsPhotosStore extends NotifierStore<Failure, TabState> {
         loadingNewPage: true,
       ),
     );
-    await Future.delayed(const Duration(seconds: 10));
 
     final result = await _searchPhotosUsecase(query, url: state.nextpage);
 
